@@ -61,8 +61,11 @@
         <property name="keySerializer">
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
         </property>
+        <!-- 如果想设置value为对象的话，这里不能配置成StringRedisSerializer -->
+        <!-- 否则会报错  java.lang.ClassCastException: com.eastrobot.robotdev.entity.User cannot be cast to java.lang.String -->
+        <!-- 而是要用JdkSerializationRedisSerializer，然后javabean实现Serializable接口 -->
         <property name="valueSerializer">
-            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
         </property>
         <property name="hashKeySerializer">
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
