@@ -40,6 +40,21 @@ public class ServiceTest extends BaseTest {
 
 
     @Test
+    public void testGet() {
+        ValueOperations<String, String> operations = redisTemplate.opsForValue();
+        long start = System.currentTimeMillis();
+        long times = 0;
+        while (System.currentTimeMillis() - start < 5000) {
+            String name2 = operations.get("name2");
+            //System.out.println(name2);
+            times++;
+        }
+        System.out.println("读取了" + times + "次redis");
+
+    }
+
+
+    @Test
     public void test1() {
         ValueOperations<String, String> operations = redisTemplate.opsForValue();
 
