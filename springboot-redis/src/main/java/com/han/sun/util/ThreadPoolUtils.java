@@ -20,6 +20,7 @@ import java.util.concurrent.*;
  * @version 1.0.0
  * @since 2019/6/28 10:34
  */
+@SuppressWarnings("all")
 public class ThreadPoolUtils {
 
     private ThreadPoolUtils() {
@@ -44,7 +45,7 @@ public class ThreadPoolUtils {
      * @return 线程池对象
      * @since 2020/3/9 18:25 han.sun
      */
-    public static ThreadPoolExecutor getThreadPool() {
+    private static ThreadPoolExecutor getThreadPool() {
         if (threadPool != null) {
             return threadPool;
         } else {

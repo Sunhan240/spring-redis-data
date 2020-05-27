@@ -8,13 +8,12 @@
  */
 package com.han.sun.publish.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.han.sun.publish.RedisChannelEnums;
 import com.han.sun.publish.RedisPublish;
 import com.han.sun.publish.message.BasePubMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,7 +33,7 @@ public class RedisPublishImpl implements RedisPublish {
     private static final Logger log = LogManager.getLogger(RedisPublishImpl.class);
 
     @Resource
-    private StringRedisTemplate stringRedisTemplate;
+    private RedisTemplate redisTemplate;
 
     @Override
     public void sendMessage(RedisChannelEnums redisChannelEnums, BasePubMessage basePubMessage) {
@@ -42,7 +41,7 @@ public class RedisPublishImpl implements RedisPublish {
             return;
         }
         basePubMessage.setChannel(redisChannelEnums.getCode());
-        stringRedisTemplate.convertAndSend(redisChannelEnums.getCode(), basePubMessage.toString());
+        redisTemplate.convertAndSend(redisChannelEnums.getCode(), basePubMessage.toString());
         log.info("消息发布成功！");
     }
 }

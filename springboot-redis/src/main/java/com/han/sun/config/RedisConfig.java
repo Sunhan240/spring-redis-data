@@ -21,8 +21,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -49,8 +51,20 @@ public class RedisConfig {
     public RedisTemplate<String, Object> redisCacheTemplate(LettuceConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(new StringRedisSerializer());
+        template.setValueSerializer(new JdkSerializationRedisSerializer());
         template.setConnectionFactory(redisConnectionFactory);
+        return template;
+    }
+
+    @Bean
+    public RedisTemplate<Serializable, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<Serializable, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+        template.afterPropertiesSet();
+        // redis存取对象的关键配置
+        template.setKeySerializer(new StringRedisSerializer());
+        // ObjectRedisSerializer类为java对象的序列化和反序列化工具类
+        template.setValueSerializer(new ObjectRedisSerializer());
         return template;
     }
 
