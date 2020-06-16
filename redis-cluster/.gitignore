@@ -6,6 +6,7 @@ target/
 .idea
 *.iws
 *.iml
+logs
 *.ipr
 
 ### VS Code ###
