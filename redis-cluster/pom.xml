@@ -24,7 +24,7 @@
         <!-- spring版本 -->
         <spring.version>4.3.7.RELEASE</spring.version>
         <!-- Json版本 -->
-        <fastjson.version>1.2.58</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
 
         <!-- redis 版本 -->
         <redis.version>2.9.0</redis.version>
